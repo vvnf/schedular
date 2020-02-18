@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>schedule</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="w-100" [formGroup]="taskForm" (ngSubmit)="createTask(taskForm.value)">
+    <!-- <ion-input hidden formControlName="userID" value="HBAkAw2dvYPcrjrNwlqScX1SDqj1"></ion-input> -->
+    <!-- <ion-input hidden formControlName="userID" value="{{loggedinUser.uid}}"></ion-input> -->
+    <ion-item>
+        <ion-label position="floating">Task Title</ion-label>
+        <ion-input formControlName="title" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Task Description</ion-label>
+        <ion-textarea formControlName="description" type="text"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>From</ion-label>
+      <ion-datetime formControlName="fromDate" displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>To</ion-label>
+      <ion-datetime formControlName="toDate" displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">No. Of Hours</ion-label>
+      <ion-input formControlName="hours" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Assign To</ion-label>
+      <ion-select formControlName="assignTo" interface="action-sheet">
+        <ion-select-option *ngFor="let emp of allEmp" value="{{emp.id}}">{{emp.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button type="submit">Submit</ion-button>
+</form>
+</ion-content>

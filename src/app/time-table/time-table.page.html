@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>timeTable</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-template #template let-displayEvent="displayEvent">
+    <div class="calendar-event-inner" style="height: 20px;background: green;">{{displayEvent.event.title}}</div>
+</ng-template>
+
+  <calendar
+  [weekviewAllDayEventTemplate]="template"
+  [eventSource]="eventSource" 
+  [calendarMode]="calendar.mode" 
+  [currentDate]="calendar.currentDate"
+  (onEventSelected)="onEventSelected($event)"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)" 
+  startHour="0"
+  endHour="0"
+  step="30"
+  startingDayWeek="1">
+  </calendar>
+
+  <!-- <ng-template #template let-day="day" let-eventTemplate="eventTemplate">
+    <div [ngClass]="{'calendar-event-wrap': day.events}" *ngIf="day.events"
+         [ngStyle]="{height: 25*day.events.length+'px'}">
+        <div *ngFor="let displayEvent of day.events" class="calendar-event" tappable
+             (click)="onEventSelected(displayEvent.event)"
+             [ngStyle]="{top: 25*displayEvent.position+'px', width: 100*(displayEvent.endIndex-displayEvent.startIndex)+'%', height: '25px'}">
+            <ng-template [ngTemplateOutlet]="eventTemplate"
+                         [ngTemplateOutletContext]="{displayEvent:displayEvent}">
+            </ng-template>
+        </div>
+    </div>
+</ng-template> -->
+
+</ion-content>
