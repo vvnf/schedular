@@ -34,6 +34,10 @@ export class CloudStoreService {
     return this.firestore.collection('tasks/', ref => ref.where('creatorsUserID', '==', userID)).snapshotChanges();
   }
 
+  getTaks(){
+    return this.firestore.collection('tasks/').snapshotChanges();
+  }
+
   getTasksAssignedTome(userID){
     return this.firestore.collection('tasks/', ref => ref.where('assignTo', '==', userID)).snapshotChanges();
   }

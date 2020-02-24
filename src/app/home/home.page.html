@@ -18,6 +18,37 @@
       </ion-col>
     </ion-row>
   </ion-grid>  
+
+<div *ngIf="disp.userType == 'employee' ;else manager">
+  <h2 class="padding" style="padding: 0 20px;margin: 0;">My Tasks List</h2>
+  <ion-card *ngFor="let task of tasks">
+    <ion-card-header>
+      <ion-card-subtitle>{{task.startDayDisp}} - {{task.endDayDisp}}</ion-card-subtitle>
+      <ion-card-title>{{task.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{task.desc}}
+    </ion-card-content>
+  </ion-card>
+</div>
+
+<ng-template #manager>
+  <h2 class="padding" style="padding: 0 20px;margin: 0;">Tasks Created By Me</h2>
+  <ion-card *ngFor="let task of tasksManager">
+    <ion-card-header>
+      <ion-card-subtitle>{{task.startDayDisp}} - {{task.endDayDisp}}</ion-card-subtitle>
+      <ion-card-title>{{task.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{task.desc}}
+    </ion-card-content>
+  </ion-card>
+
+</ng-template>
+
+  
+
+  
   
   
 </ion-content>

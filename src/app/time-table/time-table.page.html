@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>timeTable</ion-title>
+    <ion-title>{{ viewTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,19 +9,28 @@
     <div class="calendar-event-inner" style="height: 20px;background: green;">{{displayEvent.event.title}}</div>
 </ng-template>
 
+<!-- <ng-template #template let-displayEvent="displayEvent">
+  <div class="calendar-event-inner">{{displayEvent.event.title}}</div>
+</ng-template> -->
+
   <calendar
   [weekviewAllDayEventTemplate]="template"
+  [weekviewNormalEventTemplate]="template"
   [eventSource]="eventSource" 
   [calendarMode]="calendar.mode" 
   [currentDate]="calendar.currentDate"
   (onEventSelected)="onEventSelected($event)"
   (onTitleChanged)="onViewTitleChanged($event)"
   (onTimeSelected)="onTimeSelected($event)" 
-  startHour="0"
-  endHour="0"
+  startHour="10"
+  endHour="20"
   step="30"
+  formatWeekTitle='MMMM yyyy'
   startingDayWeek="1">
+  
   </calendar>
+
+  <!-- <p>* click on above events to get event desc</p> -->
 
   <!-- <ng-template #template let-day="day" let-eventTemplate="eventTemplate">
     <div [ngClass]="{'calendar-event-wrap': day.events}" *ngIf="day.events"

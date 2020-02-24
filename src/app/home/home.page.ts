@@ -19,6 +19,11 @@ export class HomePage {
 
   public userDataSubscriber: Subscription;
   public userData:UserData;
+  public tasksSubscriber: Subscription;
+  public tasks=[];
+
+  public tasksSubscribermanager: Subscription;
+  public tasksManager=[];
 
   public disp={};
 
@@ -46,6 +51,66 @@ ngOnInit(){
       console.log('USer Data: ', this.userData);
     });
 
+
+    this.tasksSubscriber = this.cloudStore.getTasksAssignedTome(this.userID).subscribe(data=>{
+      this.tasks = data.map(e => {
+        //console.log('ttttasl: ',e.payload.doc.data());
+        return {
+          id: e.payload.doc.id,
+          title:e.payload.doc.data()['title'],
+          desc:e.payload.doc.data()['description'],
+          startDay: e.payload.doc.data()['fromDateOg'],
+          endDay: e.payload.doc.data()['toDateOg'],
+
+          startDayDisp: e.payload.doc.data()['fromDate'],
+          endDayDisp: e.payload.doc.data()['toDate'],
+
+          startTime:e.payload.doc.data()['fromTimeOg'],
+          endTime:e.payload.doc.data()['toTimeOg'],
+
+          startTimeDisp:e.payload.doc.data()['fromTime'],
+          endTimeDisp:e.payload.doc.data()['toTime'],
+
+
+          // startTime: ((new Date(e.payload.doc.data()['fromDateOg'])).setTime((new Date(e.payload.doc.data()['fromTimeOg'])).getTime())),
+          // endTime : ((new Date(e.payload.doc.data()['toDateOg'])).setTime((new Date(e.payload.doc.data()['toTimeOg'])).getTime())),
+          allDay: false,
+          //tasksDates: this.getDates(new Date(e.payload.doc.data()['fromDate']), new Date(e.payload.doc.data()['toDate'])),
+        };
+    });
+  });
+
+
+  this.tasksSubscribermanager = this.cloudStore.getTaksIcreated(this.userID).subscribe(data=>{
+    this.tasksManager = data.map(e => {
+      //console.log('ttttasl: ',e.payload.doc.data());
+      return {
+        id: e.payload.doc.id,
+        title:e.payload.doc.data()['title'],
+        desc:e.payload.doc.data()['description'],
+        startDay: e.payload.doc.data()['fromDateOg'],
+        endDay: e.payload.doc.data()['toDateOg'],
+
+        startDayDisp: e.payload.doc.data()['fromDate'],
+        endDayDisp: e.payload.doc.data()['toDate'],
+
+        startTime:e.payload.doc.data()['fromTimeOg'],
+        endTime:e.payload.doc.data()['toTimeOg'],
+
+        startTimeDisp:e.payload.doc.data()['fromTime'],
+        endTimeDisp:e.payload.doc.data()['toTime'],
+
+
+        // startTime: ((new Date(e.payload.doc.data()['fromDateOg'])).setTime((new Date(e.payload.doc.data()['fromTimeOg'])).getTime())),
+        // endTime : ((new Date(e.payload.doc.data()['toDateOg'])).setTime((new Date(e.payload.doc.data()['toTimeOg'])).getTime())),
+        allDay: false,
+        //tasksDates: this.getDates(new Date(e.payload.doc.data()['fromDate']), new Date(e.payload.doc.data()['toDate'])),
+      };
+  });
+});
+
+
+
     
     // this.userEmail = this.authService.userDetails().email;
     // this.userID = this.authService.userDetails().uid;
@@ -69,6 +134,8 @@ logout(){
 
 ngDestroy() {
   this.userDataSubscriber.unsubscribe();
+  this.tasksSubscriber.unsubscribe();
+  this.tasksSubscribermanager.unsubscribe();
 }
 
 }
