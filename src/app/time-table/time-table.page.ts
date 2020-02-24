@@ -108,16 +108,6 @@ export class TimeTablePage implements OnInit {
   return newDate;
 }
 
-// formatAMPM(date) {
-//   var hours = date.getHours();
-//   var minutes = date.getMinutes();
-//   var ampm = hours >= 12 ? 'pm' : 'am';
-//   hours = hours % 12;
-//   hours = hours ? hours : 12; // the hour '0' should be '12'
-//   minutes = minutes < 10 ? '0'+minutes : minutes;
-//   var strTime = hours + ':' + minutes + ' ' + ampm;
-//   return strTime;
-// }
 
   constructor(
     private cloudStore: CloudStoreService,
@@ -151,9 +141,9 @@ export class TimeTablePage implements OnInit {
         console.log('tasks: ',this.tasks[i]);
 
 
-        console.log('adsasas' , this.mergeDayandTime(  new Date(this.tasks[i].startDay), new Date(this.tasks[i].startTime)) );
+        console.log('start adsasas' , this.mergeDayandTime(  new Date(this.tasks[i].startDay), new Date(this.tasks[i].startTime)) );
 
-        console.log('adsasas' , this.mergeDayandTime(  new Date(this.tasks[i].endDay), new Date(this.tasks[i].endTime)) );
+        console.log('end adsasas' , this.mergeDayandTime(  new Date(this.tasks[i].endDay), new Date(this.tasks[i].endTime)) );
         // let startTime = new Date(this.tasks[i].startDay);
         // startTime.setTime(new Date(this.tasks[i].startTime).getTime());
         this.tasks[i].startTime = this.mergeDayandTime(  new Date(this.tasks[i].startDay), new Date(this.tasks[i].startTime));

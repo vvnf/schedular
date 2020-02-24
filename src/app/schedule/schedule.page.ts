@@ -161,45 +161,55 @@ if(form.title != null && form.description != null && form.fromDate != null && fo
     if(new Date(form.fromDateOg).toLocaleDateString() >= new Date().toLocaleDateString()){ //Check if date entered is before todays date
       if(form.fromDate <= form.toDate){ //Check if from date is lesss than to date
 
-        if(this.checkForHistoricTime(form.fromDateOg , form.fromTimeOg)){// Time should not be historic 
-
-          if(new Date(form.fromTimeOg) < new Date(form.toTimeOg)){// From before to time
-
-
-            if( (new Date(form.fromTimeOg) > this.workHourStartTime) && (new Date(form.fromTimeOg) < this.workHoursEndTime) 
-            && (new Date(form.toTimeOg) > this.workHourStartTime) && (new Date(form.toTimeOg) < this.workHoursEndTime)
-            ){ // Time should be within working hours
-
-              if(this.checkIftaskAlreadyexist(this.toYYYYMMDD(new Date(form.fromDateOg)), this.toYYYYMMDD(new Date(form.toDateOg)) , form.fromTimeOg, form.toTimeOg , form.assignTo)){
-                alert('Employee already have task in the selected dates and Time.');
-                this.taskForm.reset();
-              }
-              else{
-                form.creatorsUserID = this.loggedinUser;
-                  this.cloudStore.createTask(form)
-                  .then(data=>{
-                    alert('Task created Successfully');
-                    this.taskForm.reset();
-                  });
-                  console.log('Form Submit : ', form);
-              }
-
-            }
-            else {
-            alert('Time Should be within working hours i.e 10:00 AM to 7:00 PM');
-            }
-
-
-          }
-          else{
-            alert('fromTime should be before toTime');
-          }
-
-
+        if( (new Date(form.fromDateOg).getDay() == 6) ||  (new Date(form.fromDateOg).getDay() == 0) 
+        || (new Date(form.toDateOg).getDay() == 6) ||  (new Date(form.toDateOg).getDay() == 0)
+        ){
+          alert('Sorry Sir ! We do not work on weekends');
         }
         else{
-          alert('fromTime is a historic time now.');
+          if(this.checkForHistoricTime(form.fromDateOg , form.fromTimeOg)){// Time should not be historic 
+
+            if(new Date(form.fromTimeOg) < new Date(form.toTimeOg)){// From before to time
+  
+  
+              if( (new Date(form.fromTimeOg) > this.workHourStartTime) && (new Date(form.fromTimeOg) < this.workHoursEndTime) 
+              && (new Date(form.toTimeOg) > this.workHourStartTime) && (new Date(form.toTimeOg) < this.workHoursEndTime)
+              ){ // Time should be within working hours
+  
+                if(this.checkIftaskAlreadyexist(this.toYYYYMMDD(new Date(form.fromDateOg)), this.toYYYYMMDD(new Date(form.toDateOg)) , form.fromTimeOg, form.toTimeOg , form.assignTo)){
+                  alert('Employee already have task in the selected dates and Time.');
+                  this.taskForm.reset();
+                }
+                else{
+                  form.creatorsUserID = this.loggedinUser;
+                    this.cloudStore.createTask(form)
+                    .then(data=>{
+                      alert('Task created Successfully');
+                      this.taskForm.reset();
+                    });
+                    console.log('Form Submit : ', form);
+                }
+  
+              }
+              else {
+              alert('Time Should be within working hours i.e 10:00 AM to 7:00 PM');
+              }
+  
+  
+            }
+            else{
+              alert('fromTime should be before toTime');
+            }
+  
+  
+          }
+          else{
+            alert('fromTime is a historic time now.');
+          }
+
         }
+
+
 
       }
       else {
