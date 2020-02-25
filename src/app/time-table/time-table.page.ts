@@ -21,6 +21,7 @@ export class TimeTablePage implements OnInit {
   public tasksSubscriber: Subscription;
   public tasks=[];
   public viewTitle;
+  public markDisabled: any;
 
   calendar = {
     mode:'month',
@@ -116,6 +117,12 @@ export class TimeTablePage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.markDisabled = (date: Date) => {
+      let dateFormatted = date.getDay();
+      // console.log('Date : ',dateFormatted);
+      if (dateFormatted == 6 || dateFormatted == 0) { return true } else { return false } 
+    };
 
     this.storage.get('user').then((user) => {
       console.log('USER :', user);
